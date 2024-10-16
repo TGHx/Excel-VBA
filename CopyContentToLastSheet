@@ -3,7 +3,7 @@ Sub CopyContentToLastSheet()
     Dim lastSheet As Worksheet
     Dim secondLastSheet As Worksheet
     Dim lastRow As Long
-    Dim secondLastRow: Long
+    Dim secondLastRow As Long
     Dim cell As Range
     Dim findCell As Range
 
