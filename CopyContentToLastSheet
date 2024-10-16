@@ -1,0 +1,23 @@
+Sub CopyContentToLastSheet()
+    Dim wb As Workbook
+    Dim lastSheet As Worksheet
+    Dim secondLastSheet As Worksheet
+    Dim lastRow As Long
+    Dim secondLastRow As Long
+    Dim cell As Range
+    Dim findCell As Range
+
+    Set wb = ThisWorkbook
+    Set lastSheet = wb.Sheets(wb.Sheets.Count)
+    Set secondLastSheet = wb.Sheets(wb.Sheets.Count - 1)
+
+    secondLastRow = secondLastSheet.Cells(secondLastSheet.Rows.Count, "A").End(xlUp).Row
+    lastRow = lastSheet.Cells(lastSheet.Rows.Count, "A").End(xlUp).Row
+
+    For Each cell In secondLastSheet.Range("D2:D" & secondLastRow)
+        Set findCell = lastSheet.Range("A2:A" & lastRow).Find(cell.Offset(0, -3).Value, LookIn:=xlValues, LookAt:=xlWhole)
+        If Not findCell Is Nothing Then
+            cell.Resize(1, secondLastSheet.Columns.Count - 3).Copy Destination:=lastSheet.Cells(findCell.Row, 4)
+        End If
+    Next cell
+End Sub
