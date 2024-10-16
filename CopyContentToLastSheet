@@ -3,7 +3,7 @@ Sub CopyContentToLastSheet()
     Dim lastSheet As Worksheet
     Dim secondLastSheet As Worksheet
     Dim lastRow As Long
-    Dim secondLastRow As Long
+    Dim secondLastRow: Long
     Dim cell As Range
     Dim findCell As Range
 
@@ -13,6 +13,9 @@ Sub CopyContentToLastSheet()
 
     secondLastRow = secondLastSheet.Cells(secondLastSheet.Rows.Count, "A").End(xlUp).Row
     lastRow = lastSheet.Cells(lastSheet.Rows.Count, "A").End(xlUp).Row
+
+    ' Copy header row from second last sheet to last sheet
+    secondLastSheet.Rows(1).Copy Destination:=lastSheet.Rows(1)
 
     For Each cell In secondLastSheet.Range("D2:D" & secondLastRow)
         Set findCell = lastSheet.Range("A2:A" & lastRow).Find(cell.Offset(0, -3).Value, LookIn:=xlValues, LookAt:=xlWhole)
